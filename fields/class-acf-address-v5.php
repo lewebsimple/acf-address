@@ -19,6 +19,11 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 			parent::__construct();
 		}
 
+		/**
+		 * Render address field settings
+		 *
+		 * @param $field (array) the $field being edited
+		 */
 		function render_field_settings( $field ) {
 			// Return_format
 			acf_render_field_setting( $field, array(
@@ -32,6 +37,9 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 			) );
 		}
 
+		/**
+		 * Enqueue input scripts and styles
+		 */
 		function input_admin_enqueue_scripts() {
 			$url     = $this->settings['url'];
 			$version = $this->settings['version'];
@@ -86,6 +94,11 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 			wp_enqueue_style( 'acf-address' );
 		}
 
+		/**
+		 * Render address field input
+		 *
+		 * @param $field (array) the $field being rendered
+		 */
 		function render_field( $field ) {
 			$name  = $field['name'];
 			$value = wp_parse_args( $field['value'], array(
@@ -135,6 +148,29 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 			<?php
 		}
 
+		/**
+		 * Validate address value
+		 *
+		 * @param $valid (boolean) validation status based on the value and the field's required setting
+		 * @param $value (mixed) the $_POST value
+		 * @param $field (array) the field array holding all the field options
+		 * @param $input (string) the corresponding input name for $_POST value
+		 *
+		 * @return mixed
+		 */
+		function validate_value( $valid, $value, $field, $input ) {
+			return $valid;
+		}
+
+		/**
+		 * Format address value
+		 *
+		 * @param $value (mixed) the value which was loaded from the database
+		 * @param $post_id (mixed) the $post_id from which the value was loaded
+		 * @param $field (array) the $field array holding the options
+		 *
+		 * @return $value (mixed) the formatted value
+		 */
 		function format_value( $value, $post_id, $field ) {
 			return acf_address_plugin::format_value( $value, $field['return_format'] );
 		}
