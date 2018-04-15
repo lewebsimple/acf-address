@@ -35,17 +35,6 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 		function input_admin_enqueue_scripts() {
 			$url     = $this->settings['url'];
 			$version = $this->settings['version'];
-			$options = array(
-				'json'   => "{$url}assets/addressfield.json",
-				'fields' => array(
-					'country'            => '#acf-address-country',
-					'locality'           => '#acf-address-locality',
-					'thoroughfare'       => '#acf-address-thoroughfare',
-					'localityname'       => '#acf-address-localityname',
-					'administrativearea' => '#acf-address-administrativearea',
-					'postalcode'         => '#acf-address-postalcode',
-				),
-			);
 
 			wp_register_script( 'jquery-addressfield', "{$url}assets/js/jquery.addressfield.js", array( 'jquery' ), '1.2.2' );
 			wp_register_script( 'acf-address', "{$url}assets/js/acf-address.js", array(
@@ -53,7 +42,45 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 				'jquery-addressfield',
 			), $version );
 			wp_enqueue_script( 'acf-address' );
+			$options = array(
+				'json'   => "{$url}assets/addressfield.json",
+				'fields' => array(
+					'country'            => '.country',
+					'locality'           => '.acf-address-locality',
+					'thoroughfare'       => '.thoroughfare',
+					'premise'            => '.premise',
+					'localityname'       => '.localityname',
+					'administrativearea' => '.administrativearea',
+					'postalcode'         => '.postalcode',
+				),
+			);
 			wp_localize_script( 'acf-address', 'options', $options );
+			$labels = array(
+				// Address field labels
+				'Address 1'   => __( "Address 1", 'acf-address' ),
+				'Address 2'   => __( "Address 2", 'acf-address' ),
+				'City'        => __( "City", 'acf-address' ),
+				'Country'     => __( "Country", 'acf-address' ),
+				'Postal code' => __( "Postal code", 'acf-address' ),
+				'Province'    => __( "Province", 'acf-address' ),
+				'State'       => __( "State", 'acf-address' ),
+				'ZIP code'    => __( "ZIP code", 'acf-address' ),
+				// Canadian provinces
+				'AB'          => __( "Alberta", 'acf-address' ),
+				'BC'          => __( "British Columbia", 'acf-address' ),
+				'MB'          => __( "Manitoba", 'acf-address' ),
+				'NB'          => __( "New Brunswick", 'acf-address' ),
+				'NL'          => __( "Newfoundland and Labrador", 'acf-address' ),
+				'NS'          => __( "Nova Scotia", 'acf-address' ),
+				'NT'          => __( "Northwest Territories", 'acf-address' ),
+				'NU'          => __( "Nunavut", 'acf-address' ),
+				'ON'          => __( "Ontario", 'acf-address' ),
+				'PE'          => __( "Prince Edward Island", 'acf-address' ),
+				'QC'          => __( "Quebec", 'acf-address' ),
+				'SK'          => __( "Saskatchewan", 'acf-address' ),
+				'YT'          => __( "Yukon Territory", 'acf-address' ),
+			);
+			wp_localize_script( 'acf-address', 'labels', $labels );
 
 			wp_register_style( 'acf-address', "{$url}assets/css/acf-address.css", array( 'acf-input', ), $version );
 			wp_enqueue_style( 'acf-address' );
@@ -70,41 +97,38 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 				'postalcode'         => '',
 			) );;
 			?>
-            <div class="acf-address">
-
+            <div class="acf-input-wrap acf-address">
                 <div class="form-group">
-                    <label for="acf-address-country"><?= __( "Country", 'acf-address' ) ?></label>
-                    <select id="acf-address-country" name="<?= $name ?>[country]"
-                            data-country-selected="<?= $value['country'] ?>" class="form-control">
+                    <label for="country"><?= __( "Country", 'acf-address' ) ?></label>
+                    <select class="form-control country" id="country"
+                            name="<?= $name ?>[country]" data-country-selected="<?= $value['country'] ?>">
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="acf-address-thoroughfare"><?= __( "Address 1", 'acf-address' ) ?></label>
-                    <input type="text" id="acf-address-thoroughfare" name="<?= $name ?>[thoroughfare]"
-                           value="<?= $value['thoroughfare'] ?>" class="form-control"/>
+                    <label for="thoroughfare"><?= __( "Address 1", 'acf-address' ) ?></label>
+                    <input type="text" class="form-control thoroughfare" id="thoroughfare"
+                           name="<?= $name ?>[thoroughfare]" value="<?= $value['thoroughfare'] ?>"/>
                 </div>
                 <div class="form-group">
-                    <label for="acf-address-premise"><?= __( "Address 2", 'acf-address' ) ?></label>
-                    <input type="text" id="acf-address-premise" name="<?= $name ?>[premise]"
-                           value="<?= $value['premise'] ?>" class="form-control"/>
+                    <label for="premise"><?= __( "Address 2", 'acf-address' ) ?></label>
+                    <input type="text" class="form-control premise" id="premise"
+                           name="<?= $name ?>[premise]" value="<?= $value['premise'] ?>"/>
                 </div>
-                <div id="acf-address-locality">
+                <div class="acf-address-locality">
                     <div class="form-group">
-                        <label for="acf-address-localityname"><?= __( "City", 'acf-address' ) ?></label>
-                        <input type="text" id="acf-address-localityname" name="<?= $name ?>[localityname]"
-                               value="<?= $value['localityname'] ?>" class="form-control"/>
+                        <label for="localityname"><?= __( "City", 'acf-address' ) ?></label>
+                        <input type="text" class="form-control localityname" id="localityname"
+                               name="<?= $name ?>[localityname]" value="<?= $value['localityname'] ?>"/>
                     </div>
-
                     <div class="form-group">
-                        <label for="acf-address-administrativearea"><?= __( "State", 'acf-address' ) ?></label>
-                        <input type="text" id="acf-address-administrativearea" name="<?= $name ?>[administrativearea]"
-                               value="<?= $value['administrativearea'] ?>" class="form-control"/>
+                        <label for="administrativearea"><?= __( "Province", 'acf-address' ) ?></label>
+                        <input type="text" class="form-control administrativearea" id="administrativearea"
+                               name="<?= $name ?>[administrativearea]" value="<?= $value['administrativearea'] ?>"/>
                     </div>
-
                     <div class="form-group">
-                        <label for="acf-address-postalcode"><?= __( "Postal code", 'acf-address' ) ?></label>
-                        <input type="text" id="acf-address-postalcode" name="<?= $name ?>[postalcode]"
-                               value="<?= $value['postalcode'] ?>" class="form-control"/>
+                        <label for="postalcode"><?= __( "Postal code", 'acf-address' ) ?></label>
+                        <input type="text" class="form-control postalcode" id="postalcode"
+                               name="<?= $name ?>[postalcode]" value="<?= $value['postalcode'] ?>"/>
                     </div>
                 </div>
             </div>
