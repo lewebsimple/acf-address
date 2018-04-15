@@ -34,8 +34,104 @@ if ( ! class_exists( 'acf_address_plugin' ) ) {
 			include_once( 'fields/class-acf-address-v' . $version . '.php' );
 		}
 
+		/**
+		 * Cached country data from addressfield.json
+		 *
+		 * @return array|bool|mixed
+		 */
+		static function get_addressfield_data() {
+			$addressfield_data = wp_cache_get( 'addressfield_data', 'acf-address' );
+			if ( false === $addressfield_data ) {
+				$addressfield = json_decode( file_get_contents( __DIR__ . '/assets/addressfield.json' ), true );
+				if ( ! isset( $addressfield['options'] ) ) {
+					return array();
+				}
+				$addressfield_data = array();
+				foreach ( $addressfield['options'] as $country ) {
+					$addressfield_data[ $country['iso'] ] = $country;
+				}
+				wp_cache_set( 'addressfield_data', $addressfield_data, 'acf-address' );
+			}
+
+			return $addressfield_data;
+		}
+
+		/**
+		 * Determine country name from ISO code
+		 *
+		 * @param $iso
+		 *
+		 * @return string
+		 */
+		static function get_country_name( $iso ) {
+			$addressfield_data = self::get_addressfield_data();
+			if ( empty( $addressfield_data[ strtoupper( $iso ) ] ) ) {
+				return '';
+			}
+
+			return $addressfield_data[ strtoupper( $iso ) ]['label'];
+		}
+
+		/**
+		 * Determine country address fields from ISO code
+		 *
+		 * @param $iso
+		 *
+		 * @return array
+		 */
+		static function get_country_fields( $iso ) {
+			$addressfield_data = self::get_addressfield_data();
+			if ( empty( $addressfield_data[ strtoupper( $iso ) ] ) ) {
+				return array();
+			}
+
+			return $addressfield_data[ strtoupper( $iso ) ]['fields'];
+		}
+
+		/**
+		 * Get non-empty address parts based on country fields
+		 *
+		 * @param $value
+		 *
+		 * @return array
+		 */
+		static function get_address_parts( $value ) {
+			$parts = array();
+			foreach ( self::get_country_fields( $value['country'] ) as $field ) {
+				$keys = array_keys( $field );
+				$key  = reset( $keys );
+				if ( isset( $field[ $key ]['label'] ) ) {
+					if ( ! empty( $value[ $key ] ) ) {
+						$parts[ $key ] = $value[ $key ];
+					}
+				} else {
+					foreach ( $field[ $key ] as $subfield ) {
+						$subkeys = array_keys( $subfield );
+						$subkey  = reset( $subkeys );
+						if ( ! empty( $value[ $subkey ] ) ) {
+							$parts[ $subkey ] = $value[ $subkey ];
+						}
+					}
+				}
+			}
+			$parts['country'] = self::get_country_name( $value['country'] );
+
+			return $parts;
+		}
+
+		/**
+		 * Helper for displaying acf-address field value in different formats
+		 *
+		 * @param array $value the raw address value
+		 * @param string $format the desired format
+		 *
+		 * @return mixed
+		 */
 		static function format_value( $value, $format ) {
 			switch ( $format ) {
+				case 'nobreak':
+					return implode( ', ', self::get_address_parts( $value ) );
+
 				case 'array':
 				default:
 					return $value;

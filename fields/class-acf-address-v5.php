@@ -32,6 +32,7 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 				'type'         => 'select',
 				'name'         => 'return_format',
 				'choices'      => array(
+					'nobreak' => __( "Single line", 'acf-address' ),
 					'array' => __( "Values (array)", 'acf-address' ),
 				),
 			) );
