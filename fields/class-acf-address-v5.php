@@ -33,14 +33,30 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 		}
 
 		function input_admin_enqueue_scripts() {
-			// TODO: Enqueue input scripts and styles
+			$url     = $this->settings['url'];
+			$version = $this->settings['version'];
+			$options = array();
+
+			wp_register_script( 'jquery-addressfield', "{$url}assets/js/jquery.addressfield.js", array( 'jquery' ), '1.2.2' );
+			wp_register_script( 'acf-address', "{$url}assets/js/acf-address.js", array(
+				'acf-input',
+				'jquery-addressfield',
+			), $version );
+			wp_enqueue_script( 'acf-address' );
+			wp_localize_script( 'acf-address', 'options', $options );
+
+			wp_register_style( 'acf-address', "{$url}assets/css/acf-address.css", array( 'acf-input', ), $version );
+			wp_enqueue_style( 'acf-address' );
+
 		}
 
 		function render_field( $field ) {
 			$name  = $field['name'];
 			$value = $field['value']
 			?>
-            <input type="text" name="<?= $name ?>" value="<?= $value ?>"/>
+            <div class="acf-input-wrap acf-address">
+                <input type="text" name="<?= $name ?>" value="<?= $value ?>"/>
+            </div>
 			<?php
 		}
 
