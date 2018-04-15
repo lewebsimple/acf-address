@@ -34,6 +34,14 @@ if ( ! class_exists( 'acf_address_plugin' ) ) {
 			include_once( 'fields/class-acf-address-v' . $version . '.php' );
 		}
 
+		static function format_value( $value, $format ) {
+			switch ( $format ) {
+				case 'array':
+				default:
+					return $value;
+			}
+		}
+
 	}
 
 	new acf_address_plugin();

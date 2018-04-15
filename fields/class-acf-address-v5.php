@@ -12,13 +12,24 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 			$this->name     = 'address';
 			$this->label    = __( "Address", 'acf-address' );
 			$this->category = 'basic';
-			$this->defaults = array();
+			$this->defaults = array(
+				'return_format' => 'array',
+			);
 			$this->settings = $settings;
 			parent::__construct();
 		}
 
 		function render_field_settings( $field ) {
-			// TODO: Render address field settings
+			// Return_format
+			acf_render_field_setting( $field, array(
+				'label'        => __( "Return format", 'acf-address' ),
+				'instructions' => __( "Specify the return format used in the templates.", 'acf-address' ),
+				'type'         => 'select',
+				'name'         => 'return_format',
+				'choices'      => array(
+					'array' => __( "Values (array)", 'acf-address' ),
+				),
+			) );
 		}
 
 		function input_admin_enqueue_scripts() {
@@ -34,8 +45,7 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 		}
 
 		function format_value( $value, $post_id, $field ) {
-			// TODO: Format address value
-			return $value;
+			return acf_address_plugin::format_value( $value, $field['return_format'] );
 		}
 
 	}
