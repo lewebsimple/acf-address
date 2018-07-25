@@ -59,6 +59,23 @@ if ( ! class_exists( 'acf_address_plugin' ) ) {
 		}
 
 		/**
+		 * Get list of countries
+		 *
+		 * @return array [ 'CA' => 'Canada' ]
+		 */
+		static function get_countries_list() {
+			$countries    = array();
+			$addressfield_data = self::get_addressfield_data();
+			if ( isset( $addressfield_data['options'] ) ) {
+				foreach ( $addressfield_data['options'] as $country ) {
+					$countries[ $country['iso'] ] = $country['label'];
+				}
+			}
+
+			return $countries;
+		}
+
+		/**
 		 * Determine country name from ISO code
 		 *
 		 * @param $iso

@@ -15,7 +15,8 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 			$this->label    = __( "Address", 'acf-address' );
 			$this->category = 'basic';
 			$this->defaults = array(
-				'return_format' => 'array',
+				'default_country' => 'CA',
+				'return_format'   => 'array',
 			);
 			$this->settings = $settings;
 			parent::__construct();
@@ -27,6 +28,14 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 		 * @param $field (array) the $field being edited
 		 */
 		function render_field_settings( $field ) {
+			// Default Country
+			acf_render_field_setting( $field, array(
+				'label'        => __( "Default Country", 'acf-address' ),
+				'instructions' => __( "Default country for new addresses.", 'acf-address' ),
+				'type'         => 'select',
+				'name'         => 'default_country',
+				'choices'      => acf_address_plugin::get_countries_list(),
+			) );
 			// Return_format
 			acf_render_field_setting( $field, array(
 				'label'        => __( "Return format", 'acf-address' ),
@@ -47,17 +56,19 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 			$url     = $this->settings['url'];
 			$version = $this->settings['version'];
 
-			wp_register_script( 'jquery-addressfield', "{$url}assets/js/jquery.addressfield.js", array( 'jquery' ), '1.2.2' );
+			// Register scripts
+			wp_register_script( 'jquery-addressfield', "{$url}assets/js/jquery.addressfield.js", array( 'jquery' ), '1.2.3' );
 			wp_register_script( 'acf-address', "{$url}assets/js/acf-address.js", array(
 				'acf-input',
 				'jquery-addressfield',
 			), $version );
-			wp_enqueue_script( 'acf-address' );
+
+			// jquery.addressfield options
 			$options = array(
 				'json'   => "{$url}assets/addressfield.json",
 				'fields' => array(
 					'country'            => '.country',
-					'locality'           => '.acf-address-locality',
+					'locality'           => '.locality',
 					'thoroughfare'       => '.thoroughfare',
 					'premise'            => '.premise',
 					'localityname'       => '.localityname',
@@ -66,6 +77,8 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 				),
 			);
 			wp_localize_script( 'acf-address', 'options', $options );
+
+			// jquery.addressfield localized labels and canadian provinces
 			$labels = array(
 				// Address field labels
 				'Address 1'   => __( "Address 1", 'acf-address' ),
@@ -93,8 +106,8 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 			);
 			wp_localize_script( 'acf-address', 'labels', $labels );
 
-			wp_register_style( 'acf-address', "{$url}assets/css/acf-address.css", array( 'acf-input', ), $version );
-			wp_enqueue_style( 'acf-address' );
+			// Enqueue input script
+			wp_enqueue_script( 'acf-address' );
 		}
 
 		/**
@@ -111,7 +124,7 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 				'localityname'       => '',
 				'administrativearea' => '',
 				'postalcode'         => '',
-			) );;
+			) );
 			?>
             <div class="acf-input-wrap acf-address">
                 <div class="form-group">
@@ -130,7 +143,7 @@ if ( ! class_exists( 'acf_address_field' ) ) {
                     <input type="text" class="form-control premise" id="premise"
                            name="<?= $name ?>[premise]" value="<?= $value['premise'] ?>"/>
                 </div>
-                <div class="acf-address-locality">
+                <div class="locality">
                     <div class="form-group">
                         <label for="localityname"><?= __( "City", 'acf-address' ) ?></label>
                         <input type="text" class="form-control localityname" id="localityname"
@@ -162,7 +175,58 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 		 * @return mixed
 		 */
 		function validate_value( $valid, $value, $field, $input ) {
-			return $valid;
+			// Prevent validation errors for lowercase canadian postal code
+			if ( $value['country'] === 'CA' ) {
+				$value['postalcode'] = strtoupper( $value['postalcode'] );
+			}
+
+			return self::validate_country_fields( acf_address_plugin::get_country_fields( $value['country'] ), $value, $field['required'] );
+		}
+
+		// Recursive validation function for country fields
+		static function validate_country_fields( $country_fields, $value, $required = false ) {
+			foreach ( $country_fields as $index => $country_field ) {
+				$keys          = array_keys( $country_field );
+				$country_field = reset( $country_field );
+				if ( isset( $country_field[0] ) ) {
+					$fail = self::validate_country_fields( $country_field, $value, $required );
+					if ( $fail !== true ) {
+						return $fail;
+					}
+				}
+				if ( ! isset( $value[ reset( $keys ) ] ) ) {
+					continue;
+				}
+				if ( $required && empty( $value[ reset( $keys ) ] ) && ! isset( $country_field['optional'] ) ) {
+					return sprintf( __( "Value is required (%s)", 'acf-address' ), $country_field['label'] );
+				}
+				if ( isset( $country_field['format'] ) ) {
+					if ( ! preg_match( '/' . $country_field['format'] . '/', $value[ reset( $keys ) ] ) ) {
+						return sprintf( __( "Invalid format for %s", 'acf-address' ), $country_field['label'] );
+					}
+				}
+			}
+
+			return true;
+		}
+
+		/**
+		 * Update address value
+		 *
+		 * @param $value (mixed) the value to be updated in the database
+		 * @param $post_id (mixed) the $post_id from which the value was loaded
+		 * @param $field (array) the field array holding all the field options         *
+		 *
+		 * @return mixed
+		 */
+		function update_value( $value, $post_id, $field ) {
+			// Normalize canadian postal code format
+			if ( $value['country'] === 'CA' && ! empty( $value['postalcode'] ) ) {
+				$value['postalcode'] = str_replace( ' ', '', strtoupper( $value['postalcode'] ) );
+				$value['postalcode'] = substr( $value['postalcode'], 0, 3 ) . ' ' . substr( $value['postalcode'], 3 );
+			}
+
+			return $value;
 		}
 
 		/**
