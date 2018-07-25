@@ -1,10 +1,12 @@
 <?php
 /**
  * Plugin Name:     ACF Address
- * Plugin URI:      https://gitlab.ledevsimple.ca/wordpress/plugins/acf-address
+ * Plugin URI:      https://github.com/lewebsimple/acf-address
  * Description:     Address field for Advanced Custom Fields v5.
  * Author:          Pascal Martineau <pascal@lewebsimple.ca>
  * Author URI:      https://lewebsimple.ca
+ * License:         GPLv2 or later
+ * License URI:     http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:     acf-address
  * Domain Path:     /languages
  * Version:         1.0.0
@@ -26,16 +28,16 @@ if ( ! class_exists( 'acf_address_plugin' ) ) {
 				'url'     => plugin_dir_url( __FILE__ ),
 				'path'    => plugin_dir_path( __FILE__ )
 			);
-			add_action( 'acf/include_field_types', array( $this, 'include_field' ) );
+			add_action( 'acf/include_field_types', array( $this, 'include_field_types' ) );
 		}
 
-		function include_field( $version = 5 ) {
+		function include_field_types( $version  ) {
 			load_plugin_textdomain( 'acf-address', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
-			include_once( 'fields/class-acf-address-v' . $version . '.php' );
+			include_once( 'fields/class-acf-address-v5.php' );
 		}
 
 		/**
-		 * Cached country data from addressfield.json
+		 * Get country data from addressfield.json or from cache
 		 *
 		 * @return array|bool|mixed
 		 */

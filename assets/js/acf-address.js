@@ -8,10 +8,6 @@
     $field.find('.acf-address').addressfield(options);
   }
 
-  // Initialization hooks
-  acf.add_action('ready_field/type=address', initialize_field);
-  acf.add_action('append_field/type=address', initialize_field);
-
   // Localize labels
   $.fn.addressfield.updateLabel = function (label) {
     if (labels[label]) {
@@ -22,6 +18,7 @@
   // Localize administrativearea options
   $.fn.addressfield.updateOptions = function (options) {
     const $select = $(this);
+    const $value = $select.data('_saved') || $select.val();
     if ($select.attr('id') === 'administrativearea') {
       $select.empty();
       $.each(options, function (i, option) {
@@ -31,7 +28,12 @@
           text: labels[value] || Object.values(option)[0],
         }));
       });
+      $select.val($value).change();
     }
   };
+
+  // Initialization hooks
+  acf.add_action('ready_field/type=address', initialize_field);
+  acf.add_action('append_field/type=address', initialize_field);
 
 })(jQuery);

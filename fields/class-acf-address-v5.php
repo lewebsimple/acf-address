@@ -8,6 +8,8 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 
 	class acf_address_field extends acf_field {
 
+		public $settings;
+
 		function __construct( $settings ) {
 			$this->name     = 'address';
 			$this->label    = __( "Address", 'acf-address' );
@@ -33,7 +35,7 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 				'name'         => 'return_format',
 				'choices'      => array(
 					'nobreak' => __( "Single line", 'acf-address' ),
-					'array' => __( "Values (array)", 'acf-address' ),
+					'array'   => __( "Values (array)", 'acf-address' ),
 				),
 			) );
 		}
