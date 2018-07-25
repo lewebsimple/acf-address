@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ACF Address\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-15 12:25+0000\n"
-"PO-Revision-Date: 2018-04-15 12:26+0000\n"
+"POT-Creation-Date: 2018-07-25 19:11+0000\n"
+"PO-Revision-Date: 2018-07-25 19:12+0000\n"
 "Last-Translator: lewebsimple <tech@lewebsimple.ca>\n"
 "Language-Team: Français du Canada\n"
 "Language: fr_CA\n"
@@ -13,105 +13,127 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/"
 
-#: fields/class-acf-address-v5.php:13
+#: fields/class-acf-address-v5.php:15
 msgid "Address"
 msgstr "Adresse"
 
-#: fields/class-acf-address-v5.php:25
+#: fields/class-acf-address-v5.php:33
+msgid "Default Country"
+msgstr "Pays par défaut"
+
+#: fields/class-acf-address-v5.php:34
+msgid "Default country for new addresses."
+msgstr "Pays par défaut pour les nouvelles adresses."
+
+#: fields/class-acf-address-v5.php:41
 msgid "Return format"
 msgstr "Format de retour"
 
-#: fields/class-acf-address-v5.php:26
+#: fields/class-acf-address-v5.php:42
 msgid "Specify the return format used in the templates."
 msgstr "Spécifier le format utilisé dans les templates."
 
-#: fields/class-acf-address-v5.php:30
+#: fields/class-acf-address-v5.php:46
+msgid "Single line"
+msgstr "Une seule ligne"
+
+#: fields/class-acf-address-v5.php:47
 msgid "Values (array)"
 msgstr "Valeurs (array)"
 
-#: fields/class-acf-address-v5.php:60 fields/class-acf-address-v5.php:108
+#: fields/class-acf-address-v5.php:84 fields/class-acf-address-v5.php:137
 msgid "Address 1"
 msgstr "Adresse 1"
 
-#: fields/class-acf-address-v5.php:61 fields/class-acf-address-v5.php:113
+#: fields/class-acf-address-v5.php:85 fields/class-acf-address-v5.php:142
 msgid "Address 2"
 msgstr "Adresse 2"
 
-#: fields/class-acf-address-v5.php:62 fields/class-acf-address-v5.php:119
+#: fields/class-acf-address-v5.php:86 fields/class-acf-address-v5.php:148
 msgid "City"
 msgstr "Ville"
 
-#: fields/class-acf-address-v5.php:63 fields/class-acf-address-v5.php:102
+#: fields/class-acf-address-v5.php:87 fields/class-acf-address-v5.php:131
 msgid "Country"
 msgstr "Pays"
 
-#: fields/class-acf-address-v5.php:64 fields/class-acf-address-v5.php:129
+#: fields/class-acf-address-v5.php:88 fields/class-acf-address-v5.php:158
 msgid "Postal code"
 msgstr "Code postal"
 
-#: fields/class-acf-address-v5.php:65 fields/class-acf-address-v5.php:124
+#: fields/class-acf-address-v5.php:89 fields/class-acf-address-v5.php:153
 msgid "Province"
 msgstr "Province"
 
-#: fields/class-acf-address-v5.php:66
+#: fields/class-acf-address-v5.php:90
 msgid "State"
 msgstr "État"
 
-#: fields/class-acf-address-v5.php:67
+#: fields/class-acf-address-v5.php:91
 msgid "ZIP code"
 msgstr "Code ZIP"
 
-#: fields/class-acf-address-v5.php:69
+#: fields/class-acf-address-v5.php:93
 msgid "Alberta"
 msgstr "Alberta"
 
-#: fields/class-acf-address-v5.php:70
+#: fields/class-acf-address-v5.php:94
 msgid "British Columbia"
 msgstr "Colombie-Britannique"
 
-#: fields/class-acf-address-v5.php:71
+#: fields/class-acf-address-v5.php:95
 msgid "Manitoba"
 msgstr "Manitoba"
 
-#: fields/class-acf-address-v5.php:72
+#: fields/class-acf-address-v5.php:96
 msgid "New Brunswick"
 msgstr "Nouveau-Brunswick"
 
-#: fields/class-acf-address-v5.php:73
+#: fields/class-acf-address-v5.php:97
 msgid "Newfoundland and Labrador"
 msgstr "Terre-Neuve-et-Labrador"
 
-#: fields/class-acf-address-v5.php:74
+#: fields/class-acf-address-v5.php:98
 msgid "Nova Scotia"
 msgstr "Nouvelle-Écosse"
 
-#: fields/class-acf-address-v5.php:75
+#: fields/class-acf-address-v5.php:99
 msgid "Northwest Territories"
 msgstr "Territoires du Nord-Ouest"
 
-#: fields/class-acf-address-v5.php:76
+#: fields/class-acf-address-v5.php:100
 msgid "Nunavut"
 msgstr "Nunavut"
 
-#: fields/class-acf-address-v5.php:77
+#: fields/class-acf-address-v5.php:101
 msgid "Ontario"
 msgstr "Ontario"
 
-#: fields/class-acf-address-v5.php:78
+#: fields/class-acf-address-v5.php:102
 msgid "Prince Edward Island"
 msgstr "Île-du-Prince-Édouard"
 
-#: fields/class-acf-address-v5.php:79
+#: fields/class-acf-address-v5.php:103
 msgid "Quebec"
 msgstr "Québec"
 
-#: fields/class-acf-address-v5.php:80
+#: fields/class-acf-address-v5.php:104
 msgid "Saskatchewan"
 msgstr "Saskatchewan"
 
-#: fields/class-acf-address-v5.php:81
+#: fields/class-acf-address-v5.php:105
 msgid "Yukon Territory"
 msgstr "Yukon"
+
+#: fields/class-acf-address-v5.php:201
+#, php-format
+msgid "Value is required (%s)"
+msgstr "Valeur requise (%s)"
+
+#: fields/class-acf-address-v5.php:205
+#, php-format
+msgid "Invalid format for %s"
+msgstr "Format invalide (%s)"
 
 #. Name of the plugin
 msgid "ACF Address"
@@ -122,8 +144,8 @@ msgid "Address field for Advanced Custom Fields v5."
 msgstr "Champ d'adresse pour Advanced Custom Fields v5."
 
 #. URI of the plugin
-msgid "https://gitlab.ledevsimple.ca/wordpress/plugins/acf-address"
-msgstr "https://gitlab.ledevsimple.ca/wordpress/plugins/acf-address"
+msgid "https://github.com/lewebsimple/acf-address"
+msgstr "https://github.com/lewebsimple/acf-address"
 
 #. Author of the plugin
 msgid "Pascal Martineau <pascal@lewebsimple.ca>"

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ACF Address\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-15 12:25+0000\n"
+"POT-Creation-Date: 2018-07-25 19:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -14,104 +14,126 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/"
 
-#: fields/class-acf-address-v5.php:13
+#: fields/class-acf-address-v5.php:15
 msgid "Address"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:25
+#: fields/class-acf-address-v5.php:33
+msgid "Default Country"
+msgstr ""
+
+#: fields/class-acf-address-v5.php:34
+msgid "Default country for new addresses."
+msgstr ""
+
+#: fields/class-acf-address-v5.php:41
 msgid "Return format"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:26
+#: fields/class-acf-address-v5.php:42
 msgid "Specify the return format used in the templates."
 msgstr ""
 
-#: fields/class-acf-address-v5.php:30
+#: fields/class-acf-address-v5.php:46
+msgid "Single line"
+msgstr ""
+
+#: fields/class-acf-address-v5.php:47
 msgid "Values (array)"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:60 fields/class-acf-address-v5.php:108
+#: fields/class-acf-address-v5.php:84 fields/class-acf-address-v5.php:137
 msgid "Address 1"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:61 fields/class-acf-address-v5.php:113
+#: fields/class-acf-address-v5.php:85 fields/class-acf-address-v5.php:142
 msgid "Address 2"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:62 fields/class-acf-address-v5.php:119
+#: fields/class-acf-address-v5.php:86 fields/class-acf-address-v5.php:148
 msgid "City"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:63 fields/class-acf-address-v5.php:102
+#: fields/class-acf-address-v5.php:87 fields/class-acf-address-v5.php:131
 msgid "Country"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:64 fields/class-acf-address-v5.php:129
+#: fields/class-acf-address-v5.php:88 fields/class-acf-address-v5.php:158
 msgid "Postal code"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:65 fields/class-acf-address-v5.php:124
+#: fields/class-acf-address-v5.php:89 fields/class-acf-address-v5.php:153
 msgid "Province"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:66
+#: fields/class-acf-address-v5.php:90
 msgid "State"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:67
+#: fields/class-acf-address-v5.php:91
 msgid "ZIP code"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:69
+#: fields/class-acf-address-v5.php:93
 msgid "Alberta"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:70
+#: fields/class-acf-address-v5.php:94
 msgid "British Columbia"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:71
+#: fields/class-acf-address-v5.php:95
 msgid "Manitoba"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:72
+#: fields/class-acf-address-v5.php:96
 msgid "New Brunswick"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:73
+#: fields/class-acf-address-v5.php:97
 msgid "Newfoundland and Labrador"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:74
+#: fields/class-acf-address-v5.php:98
 msgid "Nova Scotia"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:75
+#: fields/class-acf-address-v5.php:99
 msgid "Northwest Territories"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:76
+#: fields/class-acf-address-v5.php:100
 msgid "Nunavut"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:77
+#: fields/class-acf-address-v5.php:101
 msgid "Ontario"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:78
+#: fields/class-acf-address-v5.php:102
 msgid "Prince Edward Island"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:79
+#: fields/class-acf-address-v5.php:103
 msgid "Quebec"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:80
+#: fields/class-acf-address-v5.php:104
 msgid "Saskatchewan"
 msgstr ""
 
-#: fields/class-acf-address-v5.php:81
+#: fields/class-acf-address-v5.php:105
 msgid "Yukon Territory"
+msgstr ""
+
+#: fields/class-acf-address-v5.php:201
+#, php-format
+msgid "Value is required (%s)"
+msgstr ""
+
+#: fields/class-acf-address-v5.php:205
+#, php-format
+msgid "Invalid format for %s"
 msgstr ""
 
 #. Name of the plugin
@@ -123,7 +145,7 @@ msgid "Address field for Advanced Custom Fields v5."
 msgstr ""
 
 #. URI of the plugin
-msgid "https://gitlab.ledevsimple.ca/wordpress/plugins/acf-address"
+msgid "https://github.com/lewebsimple/acf-address"
 msgstr ""
 
 #. Author of the plugin
