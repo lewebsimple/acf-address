@@ -5,7 +5,7 @@
    * @param $field
    */
   function initialize_field ($field) {
-    $field.find('.acf-address').addressfield(options);
+    $field.find('.acf-address').addressfield(acfAddressOptions);
   }
 
   // Localize labels

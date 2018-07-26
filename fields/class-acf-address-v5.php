@@ -76,7 +76,7 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 					'postalcode'         => '.postalcode',
 				),
 			);
-			wp_localize_script( 'acf-address', 'options', $options );
+			wp_localize_script( 'acf-address', 'acfAddressOptions', $options );
 
 			// jquery.addressfield localized labels and canadian provinces
 			$labels = array(
