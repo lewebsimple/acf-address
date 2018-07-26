@@ -64,12 +64,9 @@ if ( ! class_exists( 'acf_address_plugin' ) ) {
 		 * @return array [ 'CA' => 'Canada' ]
 		 */
 		static function get_countries_list() {
-			$countries    = array();
-			$addressfield_data = self::get_addressfield_data();
-			if ( isset( $addressfield_data['options'] ) ) {
-				foreach ( $addressfield_data['options'] as $country ) {
-					$countries[ $country['iso'] ] = $country['label'];
-				}
+			$countries = array();
+			foreach ( self::get_addressfield_data() as $code => $country ) {
+				$countries[ $code ] = $country['label'];
 			}
 
 			return $countries;
