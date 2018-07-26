@@ -1378,7 +1378,8 @@
         },
         {
           "premise": {
-            "label": "Address 2"
+            "label": "Address 2",
+            "optional": "true"
           }
         },
         {
