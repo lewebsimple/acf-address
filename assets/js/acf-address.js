@@ -25,7 +25,7 @@
         const value = Object.keys(option)[0];
         $select.append($('<option>', {
           value: Object.keys(option)[0],
-          text: labels[value] || Object.values(option)[0],
+          text: labels[value] || option[Object.keys(option)[0]],
         }));
       });
       $select.val($value).change();
