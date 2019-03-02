@@ -148,6 +148,12 @@ if ( ! class_exists( 'acf_address_plugin' ) ) {
 				case 'nobreak':
 					return implode( ', ', self::get_address_parts( $value ) );
 
+				case 'standard':
+					$parts                       = self::get_address_parts( $value );
+					$parts['localityname']       = '<br/>' . $parts['localityname'];
+					$parts['administrativearea'] = '(' . $parts['administrativearea'] . ')';
+					return implode( ' ', $parts );
+
 				case 'array':
 				default:
 					return $value;
