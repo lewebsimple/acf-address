@@ -126,6 +126,8 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 				'administrativearea' => '',
 				'postalcode'         => '',
 			) );
+			$value['country']            = empty( $value['country'] ) ? 'CA' : $value['country'];
+			$value['administrativearea'] = empty( $value['administrativearea'] ) ? 'QC' : $value['administrativearea'];
 			?>
             <div class="acf-input-wrap acf-address">
                 <div class="form-group">
@@ -201,11 +203,11 @@ if ( ! class_exists( 'acf_address_field' ) ) {
 				if ( $required && empty( $value[ reset( $keys ) ] ) && ! isset( $country_field['optional'] ) ) {
 					return sprintf( __( "Value is required (%s)", 'acf-address' ), $country_field['label'] );
 				}
-				if ( isset( $country_field['format'] ) ) {
-					if ( ! preg_match( '/' . $country_field['format'] . '/', $value[ reset( $keys ) ] ) ) {
-						return sprintf( __( "Invalid format for %s", 'acf-address' ), $country_field['label'] );
-					}
-				}
+//				if ( isset( $country_field['format'] ) ) {
+//					if ( ! preg_match( '/' . $country_field['format'] . '/', $value[ reset( $keys ) ] ) ) {
+//						return sprintf( __( "Invalid format for %s", 'acf-address' ), $country_field['label'] );
+//					}
+//				}
 			}
 
 			return true;
