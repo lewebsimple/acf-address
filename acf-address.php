@@ -117,14 +117,14 @@ if ( ! class_exists( 'acf_address_plugin' ) ) {
 				$keys = array_keys( $field );
 				$key  = reset( $keys );
 				if ( isset( $field[ $key ]['label'] ) ) {
-					if ( ! empty( $value[ $key ] ) ) {
+					if ( isset( $value[ $key ] ) ) {
 						$parts[ $key ] = $value[ $key ];
 					}
 				} else {
 					foreach ( $field[ $key ] as $subfield ) {
 						$subkeys = array_keys( $subfield );
 						$subkey  = reset( $subkeys );
-						if ( ! empty( $value[ $subkey ] ) ) {
+						if ( isset( $value[ $subkey ] ) ) {
 							$parts[ $subkey ] = $value[ $subkey ];
 						}
 					}
