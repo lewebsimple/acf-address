@@ -29,6 +29,9 @@
         }));
       });
       $select.val($value).change();
+      setTimeout(function () {
+        acf.unload.reset();
+      }, 1);
     }
   };
 
