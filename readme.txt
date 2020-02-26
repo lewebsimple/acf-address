@@ -11,6 +11,9 @@ Address field for Advanced Custom Field v5.
 
 == Changelog ==
 
+= 1.1.0 =
+* Add composer.json
+
 = 1.0.1 =
 * Fix IE compatibility
 
