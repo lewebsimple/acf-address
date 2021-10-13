@@ -9,7 +9,7 @@
  * License URI:     http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:     acf-address
  * Domain Path:     /languages
- * Version:         1.1.0
+ * Version:         1.1.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -31,7 +31,7 @@ if ( ! class_exists( 'acf_address_plugin' ) ) {
 			add_action( 'acf/include_field_types', array( $this, 'include_field_types' ) );
 		}
 
-		function include_field_types( $version  ) {
+		function include_field_types( $version ) {
 			load_plugin_textdomain( 'acf-address', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
 			include_once( 'fields/class-acf-address-v5.php' );
 		}
@@ -149,9 +149,13 @@ if ( ! class_exists( 'acf_address_plugin' ) ) {
 					return implode( ', ', self::get_address_parts( $value ) );
 
 				case 'standard':
-					$parts                       = self::get_address_parts( $value );
+					$parts = self::get_address_parts( $value );
+					if ( empty( $parts['country'] ) ) {
+						return '';
+					}
 					$parts['localityname']       = '<br/>' . $parts['localityname'];
 					$parts['administrativearea'] = '(' . $parts['administrativearea'] . ')';
+
 					return implode( ' ', $parts );
 
 				case 'array':
