@@ -11,6 +11,9 @@ Address field for Advanced Custom Field v5.
 
 == Changelog ==
 
+= 1.1.1 =
+* Return empty address when incomplete
+
 = 1.1.0 =
 * Add composer.json
 
