@@ -4,15 +4,13 @@
    * Initialize ACF Address field
    * @param $field
    */
-  function initialize_field ($field) {
+  function initialize_field($field) {
     $field.find('.acf-address').addressfield(acfAddressOptions);
   }
 
   // Localize labels
   $.fn.addressfield.updateLabel = function (label) {
-    if (labels[label]) {
-      $(this).prev('label').text(labels[label]);
-    }
+    $(this).prev('label').text(acf._e("address", label));
   };
 
   // Localize administrativearea options
@@ -24,19 +22,19 @@
       $.each(options, function (i, option) {
         const value = Object.keys(option)[0];
         $select.append($('<option>', {
-          value: Object.keys(option)[0],
-          text: labels[value] || option[Object.keys(option)[0]],
+          value,
+          text: acf.l10n.address[value] || option[value],
         }));
       });
       $select.val($value).change();
-      setTimeout(function () {
-        acf.unload.reset();
-      }, 1);
+      setTimeout(function () { acf.unload.reset(); }, 1);
     }
   };
 
   // Initialization hooks
-  acf.add_action('ready_field/type=address', initialize_field);
-  acf.add_action('append_field/type=address', initialize_field);
+  if (typeof acf.add_action !== 'undefined') {
+    acf.add_action('ready_field/type=address', initialize_field);
+    acf.add_action('append_field/type=address', initialize_field);
+  }
 
 })(jQuery);
