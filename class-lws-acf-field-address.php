@@ -243,7 +243,7 @@ class lws_acf_field_address extends \acf_field {
 	 * @return mixed
 	 */
 	function validate_value( $valid, $value, $field, $input ) {
-		if ( 'CA' === $value['country'] ?? '' ) {
+		if ( 'CA' === ( $value['country'] ?? '' ) ) {
 			$value['postalcode'] = strtoupper( $value['postalcode'] );
 			// $test = preg_match('/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ ]?\d[ABCEGHJ-NPRSTV-Z]\d$/', $value['postalcode'], $matches);
 			// if ( ! $test ) {
@@ -287,7 +287,7 @@ class lws_acf_field_address extends \acf_field {
 	 * @return $value
 	 */
 	function update_value( $value, $post_id, $field ) {
-		if ( 'CA' === $value['country'] ?? '' ) {
+		if ( 'CA' === ( $value['country'] ?? '' ) ) {
 			$value['postalcode'] = str_replace( ' ', '', strtoupper( $value['postalcode'] ) );
 			$value['postalcode'] = substr( $value['postalcode'], 0, 3 ) . ' ' . substr( $value['postalcode'], 3 );
 		}
