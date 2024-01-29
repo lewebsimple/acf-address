@@ -67,6 +67,9 @@ class acf_address_plugin {
 
 	static function get_address_parts( $value ) {
 		$parts = array();
+		if ( ! is_array( $value ) ) {
+			return $parts;
+		}
 		foreach ( self::get_country_fields( $value['country'] ) as $field ) {
 			$keys = array_keys( $field );
 			$key  = reset( $keys );
@@ -94,8 +97,7 @@ class acf_address_plugin {
 				return implode( ', ', self::get_address_parts( $value ) );
 
 			case 'standard':
-				$parts = self::get_address_parts( $value );
-				if ( empty( $parts['country'] ) ) {
+				if ( empty( $parts = self::get_address_parts( $value ) ) || empty( $parts['country'] ) ) {
 						return '';
 				}
 				$parts['localityname']       = '<br/>' . $parts['localityname'];
