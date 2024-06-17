@@ -11,6 +11,9 @@ Address field for Advanced Custom Field v5.
 
 == Changelog ==
 
+= 2.0.3 =
+* Filter empty address elements from nobreak format
+
 = 2.0.2 =
 * Fix PHP error
 

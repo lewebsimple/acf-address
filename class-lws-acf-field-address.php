@@ -107,7 +107,7 @@ class lws_acf_field_address extends \acf_field {
 
 		$this->env = array(
 			'url'     => site_url( str_replace( ABSPATH, '', __DIR__ ) ),
-			'version' => '2.0.2',
+			'version' => '2.0.3',
 		);
 
 		parent::__construct();
@@ -172,29 +172,29 @@ class lws_acf_field_address extends \acf_field {
 		?>
 		<div class="acf-input-wrap acf-address">
 			<div class="form-group">
-				<label for="country"><?= __( "Country", 'acf-address' ) ?></label>
-				<select class="form-control country" id="country" name="<?= $field['name'] ?>[country]" data-country-selected="<?= $value['country'] ?>"></select>
+				<label for="country"><?= __( "Country", 'acf-address' ); ?></label>
+				<select class="form-control country" id="country" name="<?= $field['name']; ?>[country]" data-country-selected="<?= $value['country']; ?>"></select>
 			</div>
 			<div class="form-group">
-				<label for="thoroughfare"><?= __( "Address 1", 'acf-address' ) ?></label>
-				<input type="text" class="form-control thoroughfare" id="thoroughfare" name="<?= $field['name'] ?>[thoroughfare]" value="<?= $value['thoroughfare'] ?>"/>
+				<label for="thoroughfare"><?= __( "Address 1", 'acf-address' ); ?></label>
+				<input type="text" class="form-control thoroughfare" id="thoroughfare" name="<?= $field['name']; ?>[thoroughfare]" value="<?= $value['thoroughfare']; ?>"/>
 			</div>
 			<div class="form-group">
-				<label for="premise"><?= __( "Address 2", 'acf-address' ) ?></label>
-				<input type="text" class="form-control premise" id="premise" name="<?= $field['name'] ?>[premise]" value="<?= $value['premise'] ?>"/>
+				<label for="premise"><?= __( "Address 2", 'acf-address' ); ?></label>
+				<input type="text" class="form-control premise" id="premise" name="<?= $field['name']; ?>[premise]" value="<?= $value['premise']; ?>"/>
 			</div>
 			<div class="locality">
 				<div class="form-group">
-					<label for="localityname"><?= __( "City", 'acf-address' ) ?></label>
-					<input type="text" class="form-control localityname" id="localityname" name="<?= $field['name'] ?>[localityname]" value="<?= $value['localityname'] ?>"/>
+					<label for="localityname"><?= __( "City", 'acf-address' ); ?></label>
+					<input type="text" class="form-control localityname" id="localityname" name="<?= $field['name']; ?>[localityname]" value="<?= $value['localityname']; ?>"/>
 				</div>
 				<div class="form-group">
-					<label for="administrativearea"><?= __( "Province", 'acf-address' ) ?></label>
-					<input type="text" class="form-control administrativearea" id="administrativearea" name="<?= $field['name'] ?>[administrativearea]" value="<?= $value['administrativearea'] ?>"/>
+					<label for="administrativearea"><?= __( "Province", 'acf-address' ); ?></label>
+					<input type="text" class="form-control administrativearea" id="administrativearea" name="<?= $field['name']; ?>[administrativearea]" value="<?= $value['administrativearea']; ?>"/>
 				</div>
 				<div class="form-group">
-					<label for="postalcode"><?= __( "Postal code", 'acf-address' ) ?></label>
-					<input type="text" class="form-control postalcode" id="postalcode" name="<?= $field['name'] ?>[postalcode]" value="<?= $value['postalcode'] ?>"/>
+					<label for="postalcode"><?= __( "Postal code", 'acf-address' ); ?></label>
+					<input type="text" class="form-control postalcode" id="postalcode" name="<?= $field['name']; ?>[postalcode]" value="<?= $value['postalcode']; ?>"/>
 				</div>
 			</div>
 		</div>

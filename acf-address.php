@@ -9,7 +9,7 @@
  * License URI:     http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:     acf-address
  * Domain Path:     /languages
- * Version:         2.0.2
+ * Version:         2.0.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -37,7 +37,7 @@ function lws_include_acf_field_address() {
 class acf_address_plugin {
 	private static $addressfield;
 
-	static function get_addressfield_data() {
+	public static function get_addressfield_data() {
 		if ( self::$addressfield ) {
 			return self::$addressfield;
 		}
@@ -50,22 +50,22 @@ class acf_address_plugin {
 		return self::$addressfield;
 	}
 
-	static function get_countries_list() {
+	public static function get_countries_list() {
 		$addressfield = self::get_addressfield_data();
 		return array_combine( array_keys( $addressfield ), array_column( $addressfield, 'label' ) );
 	}
 
-	static function get_country_name( $iso ) {
+	public static function get_country_name( $iso ) {
 		$addressfield = self::get_addressfield_data();
 		return $addressfield[ $iso ]['label'] ?? __( 'Unknown country', 'acf-address' );
 	}
 
-	static function get_country_fields( $iso ) {
+	public static function get_country_fields( $iso ) {
 		$addressfield = self::get_addressfield_data();
 		return $addressfield[ $iso ]['fields'] ?? array();
 	}
 
-	static function get_address_parts( $value ) {
+	public static function get_address_parts( $value ) {
 		$parts = array();
 		if ( ! is_array( $value ) ) {
 			return $parts;
@@ -91,10 +91,10 @@ class acf_address_plugin {
 		return $parts;
 	}
 
-	static function format_value( $value, $format ) {
+	public static function format_value( $value, $format ) {
 		switch ( $format ) {
 			case 'nobreak':
-				return implode( ', ', self::get_address_parts( $value ) );
+				return implode( ', ', array_filter( self::get_address_parts( $value ) ) );
 
 			case 'standard':
 				if ( empty( $parts = self::get_address_parts( $value ) ) || empty( $parts['country'] ) ) {
