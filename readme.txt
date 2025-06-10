@@ -11,6 +11,9 @@ Address field for Advanced Custom Field v5.
 
 == Changelog ==
 
+= 2.0.4 =
+* Validate against 'CA' fields if no country given
+
 = 2.0.3 =
 * Filter empty address elements from nobreak format
 
