@@ -250,7 +250,7 @@ class lws_acf_field_address extends \acf_field {
 			//  return __( "Invalid postal code format", 'acf-address' );
 			// }
 		}
-		return self::validate_country_fields( acf_address_plugin::get_country_fields( $value['country'] ), $value, $field['required'] );
+		return self::validate_country_fields( acf_address_plugin::get_country_fields( $value['country'] ?: 'CA' ), $value, $field['required'] );
 	}
 
 	// Recursive validation function for country fields
