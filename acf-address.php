@@ -9,7 +9,7 @@
  * License URI:     http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:     acf-address
  * Domain Path:     /languages
- * Version:         2.0.4
+ * Version:         2.0.5
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -67,7 +67,7 @@ class acf_address_plugin {
 
 	public static function get_address_parts( $value ) {
 		$parts = array();
-		if ( ! is_array( $value ) ) {
+		if ( ! is_array( $value ) || empty( $value['country'] ) || ! is_string( $value['country'] ) ) {
 			return $parts;
 		}
 		foreach ( self::get_country_fields( $value['country'] ) as $field ) {
@@ -100,9 +100,18 @@ class acf_address_plugin {
 				if ( empty( $parts = self::get_address_parts( $value ) ) || empty( $parts['country'] ) ) {
 						return '';
 				}
-				$parts['localityname']       = '<br/>' . $parts['localityname'];
-				$parts['administrativearea'] = '(' . $parts['administrativearea'] . ')';
-				return implode( ' ', $parts );
+				if ( ! empty( $parts['localityname'] ) ) {
+					$parts['localityname'] = '<br/>' . $parts['localityname'];
+				}
+				$province = trim( (string) ( $parts['administrativearea'] ?? '' ) );
+				if ( $province !== '' ) {
+					$parts['administrativearea'] = '(' . $province . ')';
+				} else {
+					unset( $parts['administrativearea'] );
+				}
+				return implode( ' ', array_filter( $parts, static function ( $part ) {
+					return trim( (string) $part ) !== '';
+				} ) );
 
 			case 'array':
 			default:

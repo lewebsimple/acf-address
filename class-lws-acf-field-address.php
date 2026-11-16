@@ -243,18 +243,30 @@ class lws_acf_field_address extends \acf_field {
 	 * @return mixed
 	 */
 	function validate_value( $valid, $value, $field, $input ) {
+		if ( $valid !== true ) {
+			return $valid;
+		}
+		$value    = is_array( $value ) ? $value : array();
+		$required = ! empty( $field['required'] );
+		if ( $required && ( empty( $value['country'] ) || ! is_string( $value['country'] ) ) ) {
+			return sprintf( __( "Value is required (%s)", 'acf-address' ), __( 'Country', 'acf-address' ) );
+		}
 		if ( 'CA' === ( $value['country'] ?? '' ) ) {
-			$value['postalcode'] = strtoupper( $value['postalcode'] );
+			if ( isset( $value['postalcode'] ) && is_string( $value['postalcode'] ) ) {
+				$value['postalcode'] = strtoupper( $value['postalcode'] );
+			}
 			// $test = preg_match('/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ ]?\d[ABCEGHJ-NPRSTV-Z]\d$/', $value['postalcode'], $matches);
 			// if ( ! $test ) {
 			//  return __( "Invalid postal code format", 'acf-address' );
 			// }
 		}
-		return self::validate_country_fields( acf_address_plugin::get_country_fields( $value['country'] ?: 'CA' ), $value, $field['required'] );
+		$country = ! empty( $value['country'] ) && is_string( $value['country'] ) ? $value['country'] : ( $field['default_country'] ?? 'CA' );
+		return self::validate_country_fields( acf_address_plugin::get_country_fields( $country ), $value, $required );
 	}
 
 	// Recursive validation function for country fields
 	static function validate_country_fields( $country_fields, $value, $required = false ) {
+		$value = is_array( $value ) ? $value : array();
 		foreach ( $country_fields as $country_field ) {
 			foreach ( $country_field as $key => $field ) {
 				// Recursive validation of country fields
@@ -263,9 +275,13 @@ class lws_acf_field_address extends \acf_field {
 					if ( $fail !== true ) {
 						return $fail;
 					}
+					continue;
+				}
+				if ( isset( $value[ $key ] ) && ! is_scalar( $value[ $key ] ) ) {
+					return sprintf( __( "Invalid format (%s)", 'acf-address' ), $field['label'] );
 				}
 				// Required field validation
-				if ( $required && isset( $value[ $key ] ) && empty( $value[ $key ] ) && ! isset( $field['optional'] ) ) {
+				if ( $required && trim( (string) ( $value[ $key ] ?? '' ) ) === '' && empty( $field['optional'] ) ) {
 					return sprintf( __( "Value is required (%s)", 'acf-address' ), $field['label'] );
 				}
 				// Format validation
